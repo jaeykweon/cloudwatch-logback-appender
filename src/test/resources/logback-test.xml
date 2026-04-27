@@ -1,19 +1,22 @@
 <configuration>
 	<!-- Used for integration testing -->
+	<property scope="system" name="aws.endpointUrl" value="http://localhost:4566"/>
+	<property scope="system" name="aws.accessKeyId" value="localAccessKeyId"/>
+	<property scope="system" name="aws.secretAccessKey" value="localSecretAccessKey"/>
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
+			<pattern>[%X{traceId}] %d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<appender name="CLOUDWATCH" class="com.j256.cloudwatchlogbackappender.CloudWatchAppender">
-		<region>us-east-1</region>
+		<region>ap-northeast-2</region>
 		<logGroup>test</logGroup>
-		<logStream>general-%date{yyyyMMdd-HHmmss.SSS}-%instance-%uuid</logStream>
+		<logStream>%date{yyyyMMdd}</logStream>
 		<layout class="com.j256.cloudwatchlogbackappender.Ec2PatternLayout">
 			<!-- note: the %n is necessary to separate from any exceptions -->
-			<pattern>[%instance] [%thread] %level %logger{20} - %msg%n%xThrowable</pattern>
+			<pattern>[%X{traceId}] [%instance] [%thread] %level %logger{20} - %msg%n%xThrowable</pattern>
 		</layout>
 		<initialWaitTimeMillis>1000</initialWaitTimeMillis>
 		<maxBatchTimeMillis>1000</maxBatchTimeMillis>
@@ -25,6 +28,7 @@
 
 	<root level="INFO">
 		<appender-ref ref="CLOUDWATCH" />
+		<appender-ref ref="STDOUT" />
 	</root>
 
 	<logger name="com.j256" level="DEBUG" />

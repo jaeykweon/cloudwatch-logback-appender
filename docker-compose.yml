@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  localstack:
+    container_name: aws_localstack
+    image: localstack/localstack:4.4.0
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=logs  # logs for cloudwatch
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "./localstack_data:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
