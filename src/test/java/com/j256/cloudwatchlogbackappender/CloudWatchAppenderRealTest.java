@@ -4,6 +4,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+import java.util.UUID;
 
 @Ignore("for integration testing")
 public class CloudWatchAppenderRealTest {
@@ -21,4 +23,16 @@ public class CloudWatchAppenderRealTest {
 		logger.info("more stuff");
 		Thread.sleep(10000000);
 	}
+
+    @Test
+    public void mdcCase() throws InterruptedException {
+        try {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            MDC.put("traceId", UUID.randomUUID().toString());
+            logger.info("mdc case!");
+            Thread.sleep(3000);
+        } finally {
+            MDC.clear();
+        }
+    }
 }
