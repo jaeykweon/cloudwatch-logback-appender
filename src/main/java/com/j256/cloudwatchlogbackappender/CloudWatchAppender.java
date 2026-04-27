@@ -2,11 +2,7 @@ package com.j256.cloudwatchlogbackappender;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -423,7 +419,13 @@ public class CloudWatchAppender extends UnsynchronizedAppenderBase<ILoggingEvent
 				newEvent.addMarker(marker);
 			}
 		}
-		// newEvent.setMDCPropertyMap(loggingEvent.getMDCPropertyMap());
+
+		Map<String, String> mdcMap = loggingEvent.getMDCPropertyMap();
+		newEvent.setMDCPropertyMap(
+			mdcMap != null ?
+				new HashMap<>(mdcMap) : Collections.emptyMap()
+		);
+
 		if (message == null) {
 			newEvent.setMessage(loggingEvent.getMessage());
 		} else {
