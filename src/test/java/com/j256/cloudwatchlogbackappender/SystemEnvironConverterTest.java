@@ -11,6 +11,8 @@ import static org.junit.Assert.assertEquals;
 import org.easymock.IAnswer;
 import org.junit.Test;
 
+import java.util.Collections;
+
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.LoggingEvent;
@@ -45,6 +47,7 @@ public class SystemEnvironConverterTest extends BaseConverterTest {
 		event.setLoggerName("name");
 		event.setLevel(Level.DEBUG);
 		event.setMessage("message");
+		event.setMDCPropertyMap(Collections.emptyMap());
 
 		String sequence = "ewopjfewfj";
 		final PutLogEventsResponse result =  PutLogEventsResponse.builder().nextSequenceToken(sequence).build();
@@ -93,6 +96,7 @@ public class SystemEnvironConverterTest extends BaseConverterTest {
 		event.setLoggerName("name");
 		event.setLevel(Level.DEBUG);
 		event.setMessage("message");
+		event.setMDCPropertyMap(Collections.emptyMap());
 
 		String sequence = "ewopjfewfj";
 		final PutLogEventsResponse result =  PutLogEventsResponse.builder().nextSequenceToken(sequence).build();
@@ -139,6 +143,7 @@ public class SystemEnvironConverterTest extends BaseConverterTest {
 		event.setLoggerName("name");
 		event.setLevel(Level.DEBUG);
 		event.setMessage("message");
+		event.setMDCPropertyMap(Collections.emptyMap());
 
 		String sequence = "ewopjfewfj";
 		final PutLogEventsResponse result =  PutLogEventsResponse.builder().nextSequenceToken(sequence).build();

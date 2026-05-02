@@ -18,6 +18,8 @@ import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.PutLogEventsRequest;
+import java.util.Collections;
+
 import software.amazon.awssdk.services.cloudwatchlogs.model.PutLogEventsResponse;
 
 public class InstanceNameConverterTest extends BaseConverterTest {
@@ -47,6 +49,7 @@ public class InstanceNameConverterTest extends BaseConverterTest {
 		event.setLoggerName("name");
 		event.setLevel(Level.DEBUG);
 		event.setMessage("message");
+		event.setMDCPropertyMap(Collections.emptyMap());
 
 		String sequence = "ewopjfewfj";
 		final PutLogEventsResponse result = PutLogEventsResponse.builder().nextSequenceToken(sequence).build();
