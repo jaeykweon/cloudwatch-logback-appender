@@ -638,6 +638,7 @@ public class CloudWatchAppenderTest {
 		event.setLoggerName(name);
 		event.setLevel(level);
 		event.setMessage(message);
+		event.setMDCPropertyMap(Collections.emptyMap());
 		if (time != null) {
 			event.setTimeStamp(time);
 		}
